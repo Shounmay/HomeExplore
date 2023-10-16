@@ -17,6 +17,11 @@ const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(morgan('dev'));
 app.use(cors());
+app.get('/', (_req, res) =>
+	res.json({
+		message: `Server health active at ${new Date()}`,
+	})
+);
 app.use('/api', authroutes);
 app.use('/api', adRoutes);
 
