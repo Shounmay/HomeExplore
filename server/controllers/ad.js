@@ -3,7 +3,46 @@ import { nanoid } from 'nanoid';
 import slugify from 'slugify';
 import Ad from '../models/ad.js';
 import User from '../models/user.js';
-import { emailTemplate } from '../helpers/email.js';
+import { emailTemplate, emailTemplateBackup } from '../helpers/email.js';
+
+const backupEmailService = async (clientMail, ad, req, res) => {
+	const { name, email, message, phone, adId } = req.body;
+	const transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+			user: config.EMAIL_FROM,
+			pass: config.pass,
+		},
+	});
+
+	const mailOptions = emailTemplateBackup(
+		clientMail,
+		`
+		<p>You have received a new customer enquiry</p>
+  
+		<h4>Customer details</h4>
+		<p>Name: ${name}</p>
+		<p>Email: ${email}</p>
+		<p>Phone: ${phone}</p>
+		<p>Message: ${message}</p>
+
+	  <a href="${config.CLIENT_URL}/ad/${ad.slug}">${ad.type} in ${ad.address} for ${ad.action} ${ad.price}</a>
+	  `,
+
+		'New enquiry received'
+	);
+
+	transporter.sendMail(mailOptions, function (err, info) {
+		if (err) {
+			console.log(err);
+			res.json({ error: 'Try Again' });
+		} else {
+			res.json({
+				ok: 'true',
+			});
+		}
+	});
+};
 export const uploadImage = async (req, res) => {
 	try {
 		// console.log(req.body);
@@ -230,7 +269,7 @@ export const contactSeller = async (req, res) => {
 				(err, data) => {
 					if (err) {
 						console.log(err);
-						return res.json({ ok: false });
+						backupEmailService(ad.postedBy.email, ad, req, res);
 					} else {
 						console.log(data);
 						return res.json({ ok: true });

@@ -34,3 +34,20 @@ export const emailTemplate = (email, content, replyTo, subject) => {
 		},
 	};
 };
+export const emailTemplateBackup = (email, content, subject) => {
+	return {
+		from: config.EMAIL_FROM,
+		to: email,
+
+		subject,
+		html: `
+		<html>
+			<div style="${style}">
+				<h1>Welcome to HomeExplore</h1>
+				${content}
+				<p>&copy; ${new Date().getFullYear()}</p>
+			</div>
+		</html>
+	  `,
+	};
+};

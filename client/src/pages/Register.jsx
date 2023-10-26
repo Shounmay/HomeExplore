@@ -17,6 +17,7 @@ const Register = () => {
 				email,
 				password,
 			});
+			// console.log(data?.error);
 			if (data?.error) {
 				toast.error(data.error);
 				setLoading(false);

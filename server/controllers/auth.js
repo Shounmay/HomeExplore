@@ -1,12 +1,12 @@
 import * as config from '../config.js';
 import jwt from 'jsonwebtoken';
-import { emailTemplate } from '../helpers/email.js';
-import { hashPassword, comparePassword } from '../helpers/auth.js';
+import { emailTemplate, emailTemplateBackup } from '../helpers/email.js';
+
 import User from '../models/user.js';
 import Ad from '../models/ad.js';
 import { nanoid } from 'nanoid';
 import validator from 'email-validator';
-
+import nodemailer from 'nodemailer';
 const tokenAndUserResponse = (req, res, user) => {
 	const token = jwt.sign({ _id: user._id }, config.JWT_SECRET, {
 		expiresIn: '1y',
@@ -26,6 +26,58 @@ export const welcome = (req, res) => {
 	res.json({
 		data: 'hello from api server',
 	});
+};
+
+const backupEmailService = async (clientMail, mailType, token, res) => {
+	const transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+			user: config.EMAIL_FROM,
+			pass: config.pass,
+		},
+	});
+
+	const mailOptionsActivate = emailTemplateBackup(
+		clientMail,
+		`
+	  <p>Please click the link below to activate your account.</p>
+	  <a href="${config.CLIENT_URL}/auth/account-activate/${token}">Activate my account</a>
+	  `,
+
+		'Activate your acount'
+	);
+
+	const mailOptionsPasswordReset = emailTemplateBackup(
+		clientMail,
+		` <p>Please click the link below to access your account.</p>
+		  <a href="${config.CLIENT_URL}/auth/access-account/${token}">Access my account</a>`,
+
+		'Activate your acount'
+	);
+
+	if (mailType == 'Activate') {
+		transporter.sendMail(mailOptionsActivate, function (err, info) {
+			if (err) {
+				console.log(err);
+				res.json({ error: 'Try Again' });
+			} else {
+				res.json({
+					ok: 'true',
+				});
+			}
+		});
+	} else if (mailType == 'Reset') {
+		transporter.sendMail(mailOptionsPasswordReset, function (err, info) {
+			if (err) {
+				console.log(err);
+				res.json({ error: 'Try Again' });
+			} else {
+				res.json({
+					ok: 'true',
+				});
+			}
+		});
+	}
 };
 
 export const preRegister = async (req, res) => {
@@ -58,10 +110,10 @@ export const preRegister = async (req, res) => {
 				config.REPLY_TO,
 				'Activate your acount'
 			),
-			(err, data) => {
-				if (err) {
-					console.log(err);
-					return res.json({ ok: false });
+			(error, data) => {
+				if (error) {
+					console.log(error);
+					backupEmailService(email, 'Activate', token, res);
 				} else {
 					console.log(data);
 					return res.json({ ok: true });
@@ -135,7 +187,7 @@ export const forgotPassword = async (req, res) => {
 			(err, data) => {
 				if (err) {
 					console.log(err);
-					return res.json({ ok: false });
+					backupEmailService(email, 'Reset', token, res);
 				} else {
 					console.log(data);
 					return res.json({ ok: true });
