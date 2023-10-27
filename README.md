@@ -24,6 +24,27 @@ This technology stack allows HomeExplore to provide a seamless and user-friendly
 
 Join HomeExplore and become a part of a community that values green living, eco-friendly homes, and a brighter, more sustainable future.
 
+## Snaps of Web:
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/ad4f0860-5d00-4a01-9beb-459f08352d67)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/106de201-ad8a-4346-8b31-0be3b6491f20)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/d67f937a-8f5e-4104-99cc-baa011d4cdf0)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/8fce619c-3072-4d9b-85c9-0a0a77558cfd)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/62adcf8b-449d-4a2b-9728-77ac575c396c)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/cc17ed2e-098f-49ce-8de9-073bf97af913)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/7ddbd8c3-7032-4635-8471-ef73fe2eae93)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/e542d582-9c68-45f7-a861-aa97ea87008d)
+
+![image](https://github.com/Shounmay/HomeExplore/assets/90774417/912940c7-800e-4549-b1df-97c3b2507e0e)
+
+
 ## Features
 
 - **Email Validation-based Authentication:** Secure and reliable authentication with email validation using Amazon SES (Simple Email Service).
