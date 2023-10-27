@@ -5,6 +5,8 @@
 
 HomeExplore is a cutting-edge platform dedicated to connecting individuals with nature-friendly properties available for rent or sale. In a world where environmental sustainability and eco-conscious living are becoming increasingly important, HomeExplore provides a unique space for people who appreciate and value properties that align with these principles.
 
+<h2>Deployed Link</h2>
+https://home-explore.vercel.app/
 
 ## Tech Stack
 
