@@ -130,3 +130,4 @@ Contributors to the HomeExplore project can focus on enhancing and expanding upo
 - Promote and implement sustainability features and practices within the platform to align with its eco-friendly focus.
 
 Contributors should prioritize the features that align with the project's goals and user needs while considering the feasibility and impact of each enhancement. Clear communication and coordination among contributors can help ensure that efforts are aligned with the project's roadmap and objectives.
+Please make sure to review our [Contribution Guidelines](Contribution.md) for detailed information on how to contribute, coding standards, and our development process.
